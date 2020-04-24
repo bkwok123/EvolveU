@@ -1,5 +1,4 @@
 class ListNode {
-<<<<<<< HEAD
     constructor(subject, amount) {
         this.forwardNode = null;
         this.backwardNode = null;
@@ -13,18 +12,9 @@ class LinkedList {
 
     constructor() {
         this.head = null;
-        this.end = null;
+        this.tail = null;
     }
 
-=======
-    constructor() {
-        this.forwardNode = ;
-        this.backwardNode = null;
-        this.subject = null;
-        this.amount = null;
-    }    
-    
->>>>>>> 2178b6fe1d579377b6e3b11d7c9c22ef5e2ca09a
     // Show the subject and the amount
     show() {
 
@@ -64,18 +54,6 @@ class LinkedList {
     showtotal() {
 
     }
-
-    // ●	Allow the user to sort by subject
-<<<<<<< HEAD
-    // ●	Allow the user to sort by amount   
 }
 
 export default {ListNode, LinkedList};
-=======
-    // ●	Allow the user to sort by amount    
-}
-
-class LinkedList {
-
-}
->>>>>>> 2178b6fe1d579377b6e3b11d7c9c22ef5e2ca09a

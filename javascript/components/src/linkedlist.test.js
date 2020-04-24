@@ -10,6 +10,14 @@ test('Check the ListNode class instantiation', () => {
     expect(list.amount).toBe(10);
 });
 
+test('Check the LinkedList class instantiation', () => {
+
+    const list = new Linked.LinkedList();
+    expect(list.head).toBe(null);
+    expect(list.tail).toBe(null);
+});
+
+
 // test('Check the ListNode class deposit method', () => {
 
 //     const account = new Account("Saving",20)
