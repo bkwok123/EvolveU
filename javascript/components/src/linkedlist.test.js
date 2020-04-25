@@ -121,7 +121,9 @@ test('Check the ListNode class next method', () => {
     expect(node.amount).toBe(30);
     node = list.next();    
     expect(node.subject).toBe("Test4");
-    expect(node.amount).toBe(40);        
+    expect(node.amount).toBe(40);
+    node = list.next();        
+    expect(node).toBe(null);
 });
 
 test('Check the ListNode class previous method', () => {
@@ -139,7 +141,9 @@ test('Check the ListNode class previous method', () => {
     expect(node.amount).toBe(20);
     node = list.previous();    
     expect(node.subject).toBe("Test");
-    expect(node.amount).toBe(10);     
+    expect(node.amount).toBe(10);
+    node = list.previous();        
+    expect(node).toBe(null);         
 });
 
 test('Check the ListNode class show method', () => {
@@ -190,6 +194,38 @@ test('Check the ListNode class delete method', () => {
     expect(list.current).toBe(null);                          
     expect(list.tail).toBe(null);                          
     expect(list.size).toBe(0);
+
+
+    let item1 = list.insert("Test",10);    
+    let item2 = list.insert("Test2",20);
+    let item3 = list.insert("Test3",30);
+    let item4 = list.insert("Test4",40);
+    let item5 = list.insert("Test5",50);
+    list.first();
+    list.delete();    
+    expect(list.head).toEqual(item2);
+    expect(list.current).toEqual(item2);                          
+    expect(list.tail).toEqual(item5);
+    list.first();
+    list.delete();    
+    expect(list.head).toEqual(item3);
+    expect(list.current).toEqual(item3);                          
+    expect(list.tail).toEqual(item5); 
+    list.first();
+    list.delete();    
+    expect(list.head).toEqual(item4);
+    expect(list.current).toEqual(item4);                          
+    expect(list.tail).toEqual(item5); 
+    list.first();
+    list.delete();    
+    expect(list.head).toEqual(item5);
+    expect(list.current).toEqual(item5);                          
+    expect(list.tail).toEqual(item5);
+    list.first();
+    list.delete();    
+    expect(list.head).toEqual(null);
+    expect(list.current).toEqual(null);                          
+    expect(list.tail).toEqual(null);                                             
 });
 
 
