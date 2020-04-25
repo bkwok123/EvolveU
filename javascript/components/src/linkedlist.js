@@ -112,9 +112,9 @@ class LinkedList {
                     prev.forwardNode = null;
                 }            
             }            
+            --this.size;
         }
-
-        --this.size;
+        
         return this.current;
     }
 
