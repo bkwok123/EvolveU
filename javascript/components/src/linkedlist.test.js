@@ -123,7 +123,8 @@ test('Check the ListNode class next method', () => {
     expect(node.subject).toBe("Test4");
     expect(node.amount).toBe(40);
     node = list.next();        
-    expect(node).toBe(null);
+    expect(node.subject).toBe("Test4");
+    expect(node.amount).toBe(40);
 });
 
 test('Check the ListNode class previous method', () => {
@@ -143,7 +144,8 @@ test('Check the ListNode class previous method', () => {
     expect(node.subject).toBe("Test");
     expect(node.amount).toBe(10);
     node = list.previous();        
-    expect(node).toBe(null);         
+    expect(node.subject).toBe("Test");
+    expect(node.amount).toBe(10);         
 });
 
 test('Check the ListNode class show method', () => {
