@@ -37,7 +37,9 @@ class LinkedList {
     // Move to the next node
     next() {        
         if (this.current !== null) {
-            this.current = this.current.forwardNode;
+            if (this.current.forwardNode !== null) {
+                this.current = this.current.forwardNode;
+            }            
         }
         return this.current;
     }
@@ -45,7 +47,9 @@ class LinkedList {
     // Backup one node
     previous() {
         if (this.current !== null) {
-            this.current = this.current.backwardNode;
+            if (this.current.backwardNode !== null) {
+                this.current = this.current.backwardNode;
+            }            
         }
         return this.current;      
     }
