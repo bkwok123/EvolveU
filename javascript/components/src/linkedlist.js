@@ -134,6 +134,120 @@ class LinkedList {
 
         return total;
     }
+
+    sort() {
+           
+    }            
+
+    
 }
 
-export default {ListNode, LinkedList};
+const utility ={
+
+    // https://www.techiedelight.com/merge-sort/
+    // Merge sort is an efficient sorting algorithm which produces a stable sort,
+    // which means that if two elements have the same value, they holds same relative
+    // position in the output as they did in the input. In other words, the relative 
+    // order of elements with equal values is preserved in the sorted output. 
+    // Merge sort is a comparison sort which means that it can sort any input for 
+    // which a less-than relation is defined.
+    // 1. Divde the unsorted array into n subarrays, each of size 1 
+    //    (an array of size 1 is considered sorted).
+    // 2. Repeatedly merge subarrays to produce new sorted subarrays until
+    //    only 1 subarray is left which would be our sorted array.
+    mergeSort: (source) => {
+        // https://www.geeksforgeeks.org/merge-sort-for-linked-list/
+        // 1) If the head is NULL or there is only one element in the Linked List 
+        //     then return.
+        // 2) Else divide the linked list into two halves.  
+        // 3) Sort the two halves a and b.
+        // 4) Merge the sorted a and b
+        
+        // TERMINATION CONDITION
+        if (source === null) {
+            return source;
+        }
+
+        // BASE CASE
+        if (source.forwardNode === null) {
+            return source;
+        }
+        // RECURSION
+        else
+        {
+            const heads = utility.frontBackSplit(source);            
+            let front = heads[0];
+            let back = heads[1];
+
+            // Recursively sort the sublists
+            front = utility.mergeSort(front);
+            back = utility.mergeSort(back);
+
+            // answer = merge the two sorted lists together
+            return utility.sortedMerge(front, back);
+            // return back;
+        }         
+    },
+
+    sortedMerge: (a, b) => { 
+    
+        // TERMINATION CONDITION
+        if ((a === null) && (b === null)) {
+            return (null);
+        }                
+
+        // BASE CASE
+        if (a === null) {
+            return b; 
+        }            
+        if (b === null) {
+            return a; 
+        }            
+    
+        // RECURSION
+        // Pick either a or b, and recur
+        let result = null;
+        if (a.amount <= b.amount) { 
+            result = a;          
+            result.forwardNode = utility.sortedMerge(a.forwardNode, b); 
+        } 
+        else { 
+            result = b;
+            result.forwardNode = utility.sortedMerge(a, b.forwardNode); 
+        } 
+        return (result); 
+    }, 
+
+    frontBackSplit: (source) => {
+        
+        let fast = null;
+        let slow = source;
+        let back = null;
+
+        if (slow !== null){
+            fast = source.forwardNode;
+
+            // Advance 'fast' two nodes, and advance 'slow' one node
+            while (fast !== null) { 
+                fast = fast.forwardNode;
+
+                if (fast !== null) { 
+                    slow = slow.forwardNode; 
+                    fast = fast.forwardNode; 
+                } 
+            }     
+            
+            // 'slow' is before the midpoint in the list, so split it in two at that point.
+            back = slow.forwardNode
+            slow.forwardNode = null;    // break the front tail
+
+            if (back !== null) {
+                back.backwardNode = null;   // break the back head
+            }            
+        }
+       
+        return [source, back];
+    }
+}
+
+export default {ListNode, LinkedList, utility};
