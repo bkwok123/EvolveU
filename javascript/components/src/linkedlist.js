@@ -142,9 +142,14 @@ class LinkedList {
         
         let current = this.head;
         while (current !== null) {
+            let prev = current;
             this.tail = current;
             current = current.forwardNode;                        
-        }
+            if (current !== null) {
+                current.backwardNode = prev;
+            }
+            
+        }                
     }                
 }
 
@@ -189,7 +194,7 @@ const utility ={
             front = utility.mergeSort(front, isNumber);
             back = utility.mergeSort(back, isNumber);
 
-            // answer = merge the two sorted lists together
+            // merge the two sorted lists together
             return utility.sortedMerge(front, back, isNumber);
             // return back;
         }         
@@ -213,7 +218,7 @@ const utility ={
         // RECURSION
         // Pick either a or b, and recur
         let result = null;
-        if ((isNumber ? a.amount : a.subject) <= (isNumber ? b.amount : b.subject)) { 
+        if ((isNumber ? Number(a.amount) : a.subject) <= (isNumber ? Number(b.amount) : b.subject)) { 
             result = a;          
             result.forwardNode = utility.sortedMerge(a.forwardNode, b, isNumber); 
         } 

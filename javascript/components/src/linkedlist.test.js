@@ -428,7 +428,7 @@ test('Check the mergeSort function', () => {
     expect(current.forwardNode.forwardNode.forwardNode.subject).toBe("Test4");
 });
 
-test('Check the ListNode class sort method', () => {
+test('Check the ListNode class sort2 method', () => {
     const isNumber = true;
     const list = new Linked.LinkedList();
     list.insert("Test2",30);
@@ -460,5 +460,9 @@ test('Check the ListNode class sort method', () => {
     expect(list.current.forwardNode.forwardNode.subject).toBe("Test1");
     expect(list.current.forwardNode.forwardNode.forwardNode.subject).toBe("Test2");
     expect(list.head.subject).toBe("Test4");
-    expect(list.tail.subject).toBe("Test2");            
+    expect(list.tail.subject).toBe("Test2");
+    expect(list.tail.backwardNode.subject).toBe("Test1");    
+    expect(list.tail.backwardNode.backwardNode.subject).toBe("Test3");            
+    expect(list.tail.backwardNode.backwardNode.backwardNode.subject).toBe("Test4");            
+    expect(list.tail.backwardNode.backwardNode.backwardNode.backwardNode).toBe(null);
 });
