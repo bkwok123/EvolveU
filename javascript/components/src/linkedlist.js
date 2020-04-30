@@ -135,11 +135,17 @@ class LinkedList {
         return total;
     }
 
-    sort() {
-           
-    }            
-
-    
+    sort(isNumber) {
+        this.head = utility.mergeSort(this.head, isNumber);
+        this.current = this.head;
+        this.tail = this.head;
+        
+        let current = this.head;
+        while (current !== null) {
+            this.tail = current;
+            current = current.forwardNode;                        
+        }
+    }                
 }
 
 const utility ={
@@ -155,7 +161,7 @@ const utility ={
     //    (an array of size 1 is considered sorted).
     // 2. Repeatedly merge subarrays to produce new sorted subarrays until
     //    only 1 subarray is left which would be our sorted array.
-    mergeSort: (source) => {
+    mergeSort: (source, isNumber) => {
         // https://www.geeksforgeeks.org/merge-sort-for-linked-list/
         // 1) If the head is NULL or there is only one element in the Linked List 
         //     then return.
@@ -180,16 +186,16 @@ const utility ={
             let back = heads[1];
 
             // Recursively sort the sublists
-            front = utility.mergeSort(front);
-            back = utility.mergeSort(back);
+            front = utility.mergeSort(front, isNumber);
+            back = utility.mergeSort(back, isNumber);
 
             // answer = merge the two sorted lists together
-            return utility.sortedMerge(front, back);
+            return utility.sortedMerge(front, back, isNumber);
             // return back;
         }         
     },
 
-    sortedMerge: (a, b) => { 
+    sortedMerge: (a, b, isNumber) => { 
     
         // TERMINATION CONDITION
         if ((a === null) && (b === null)) {
@@ -207,15 +213,15 @@ const utility ={
         // RECURSION
         // Pick either a or b, and recur
         let result = null;
-        if (a.amount <= b.amount) { 
+        if ((isNumber ? a.amount : a.subject) <= (isNumber ? b.amount : b.subject)) { 
             result = a;          
-            result.forwardNode = utility.sortedMerge(a.forwardNode, b); 
+            result.forwardNode = utility.sortedMerge(a.forwardNode, b, isNumber); 
         } 
         else { 
             result = b;
-            result.forwardNode = utility.sortedMerge(a, b.forwardNode); 
+            result.forwardNode = utility.sortedMerge(a, b.forwardNode, isNumber); 
         } 
-        return (result); 
+        return result; 
     }, 
 
     frontBackSplit: (source) => {

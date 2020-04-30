@@ -312,30 +312,31 @@ test('Check the SortedMerge function', () => {
     // check TERMINATION CONDITION
     let a = null;
     let b = null;
-    expect(Linked.utility.sortedMerge(a,b)).toEqual(null);
+    const isNumber = true;
+    expect(Linked.utility.sortedMerge(a,b,isNumber)).toEqual(null);
     // check BASE CASE
     let list = new Linked.LinkedList();
     list.insert("Test",10);
     a = null;
     b = list.head;
-    expect(Linked.utility.sortedMerge(a,b)).toEqual(b);    
+    expect(Linked.utility.sortedMerge(a,b,isNumber)).toEqual(b);    
     a = list.head;
     b = null;
-    expect(Linked.utility.sortedMerge(a,b)).toEqual(a);
+    expect(Linked.utility.sortedMerge(a,b,isNumber)).toEqual(a);
 
     list.insert("Test2",20);
     a = null;
     b = list.head;
-    expect(Linked.utility.sortedMerge(a,b)).toEqual(b);    
+    expect(Linked.utility.sortedMerge(a,b,isNumber)).toEqual(b);    
     a = list.head;
     b = null;
-    expect(Linked.utility.sortedMerge(a,b)).toEqual(a);
+    expect(Linked.utility.sortedMerge(a,b,isNumber)).toEqual(a);
 
     // check RECURSION    
     let headrefs = Linked.utility.frontBackSplit(list.head);    
     a = headrefs[0];
     b = headrefs[1];
-    let result = Linked.utility.sortedMerge(a,b);
+    let result = Linked.utility.sortedMerge(a,b,isNumber);
     expect(result.amount).toEqual(10);
     expect(result.forwardNode.amount).toEqual(20);
 
@@ -345,7 +346,7 @@ test('Check the SortedMerge function', () => {
     headrefs = Linked.utility.frontBackSplit(list.head);    
     a = headrefs[0];
     b = headrefs[1];
-    result = Linked.utility.sortedMerge(a,b);
+    result = Linked.utility.sortedMerge(a,b,isNumber);
     expect(result.amount).toEqual(20);
     expect(result.forwardNode.amount).toEqual(30);    
 
@@ -356,45 +357,108 @@ test('Check the SortedMerge function', () => {
     headrefs = Linked.utility.frontBackSplit(list.head);    
     a = headrefs[0];
     b = headrefs[1];
-    result = Linked.utility.sortedMerge(a,b);
+    result = Linked.utility.sortedMerge(a,b,isNumber);
     expect(result.amount).toEqual(5);
     expect(result.forwardNode.amount).toEqual(10);    
     expect(result.forwardNode.forwardNode.amount).toEqual(20);     
 
     list = new Linked.LinkedList();
     list.insert("Test4",30);    
-    list.insert("Test4",40);    
+    list.insert("Test",40);    
     list.insert("Test2",10);
     list.insert("Test3",20);
     headrefs = Linked.utility.frontBackSplit(list.head);    
     a = headrefs[0];
     b = headrefs[1];
-    result = Linked.utility.sortedMerge(a,b);
+    result = Linked.utility.sortedMerge(a,b,isNumber);
     expect(result.amount).toEqual(10);
     expect(result.forwardNode.amount).toEqual(20);    
     expect(result.forwardNode.forwardNode.amount).toEqual(30);       
-    expect(result.forwardNode.forwardNode.forwardNode.amount).toEqual(40);       
+    expect(result.forwardNode.forwardNode.forwardNode.amount).toEqual(40);
 });    
 
 test('Check the mergeSort function', () => {
 
+    const isNumber = true;
+    
     // check TERMINATION CONDITION
-    const list = new Linked.LinkedList();
-    let current = Linked.utility.mergeSort(list.head);
+    let list = new Linked.LinkedList();
+    let current = Linked.utility.mergeSort(list.head,isNumber);
     expect(current).toBe(null);
 
     // check BASE CASE
     list.insert("Test",10);
-    current = Linked.utility.mergeSort(list.head);
+    current = Linked.utility.mergeSort(list.head,isNumber);
     expect(current.amount).toBe(10);    
 
     // check RECURSION
     list.insert("Test2",30);
     list.insert("Test3",20);
     list.insert("Test4",5);
-    current = Linked.utility.mergeSort(list.head);
+    current = Linked.utility.mergeSort(list.head,isNumber);
     expect(current.amount).toBe(5);      
     expect(current.forwardNode.amount).toBe(10);
     expect(current.forwardNode.forwardNode.amount).toBe(20);
     expect(current.forwardNode.forwardNode.forwardNode.amount).toBe(30);
+
+    list = new Linked.LinkedList();
+    list.insert("Test2",100);
+    list.insert("Test3",20);
+    list.insert("Test6",50);
+    list.insert("Test4",75);
+    list.insert("Test5",5);
+    list.insert("Test",65);
+    current = Linked.utility.mergeSort(list.head,isNumber);
+    expect(current.amount).toBe(5);      
+    expect(current.forwardNode.amount).toBe(20);
+    expect(current.forwardNode.forwardNode.amount).toBe(50);
+    expect(current.forwardNode.forwardNode.forwardNode.amount).toBe(65);
+    expect(current.forwardNode.forwardNode.forwardNode.forwardNode.amount).toBe(75);
+    expect(current.forwardNode.forwardNode.forwardNode.forwardNode.forwardNode.amount).toBe(100);
+
+    list = new Linked.LinkedList();
+    list.insert("Test2",30);
+    list.insert("Test1",20);
+    list.insert("Test4",5);
+    list.insert("Test3",10);
+    current = Linked.utility.mergeSort(list.head,!isNumber);
+    expect(current.subject).toBe("Test1");      
+    expect(current.forwardNode.subject).toBe("Test2");
+    expect(current.forwardNode.forwardNode.subject).toBe("Test3");
+    expect(current.forwardNode.forwardNode.forwardNode.subject).toBe("Test4");
+});
+
+test('Check the ListNode class sort method', () => {
+    const isNumber = true;
+    const list = new Linked.LinkedList();
+    list.insert("Test2",30);
+    list.insert("Test1",20);
+    list.insert("Test4",5);
+    list.insert("Test3",10);
+    list.sort(!isNumber);
+    expect(list.current.subject).toBe("Test1");      
+    expect(list.current.forwardNode.subject).toBe("Test2");
+    expect(list.current.forwardNode.forwardNode.subject).toBe("Test3");
+    expect(list.current.forwardNode.forwardNode.forwardNode.subject).toBe("Test4");
+    expect(list.head.subject).toBe("Test1");
+    expect(list.tail.subject).toBe("Test4");
+    expect(list.current.amount).toBe(20);      
+    expect(list.current.forwardNode.amount).toBe(30);
+    expect(list.current.forwardNode.forwardNode.amount).toBe(10);
+    expect(list.current.forwardNode.forwardNode.forwardNode.amount).toBe(5);        
+    expect(list.head.amount).toBe(20);
+    expect(list.tail.amount).toBe(5);
+    list.sort(isNumber);
+    expect(list.current.amount).toBe(5);      
+    expect(list.current.forwardNode.amount).toBe(10);
+    expect(list.current.forwardNode.forwardNode.amount).toBe(20);
+    expect(list.current.forwardNode.forwardNode.forwardNode.amount).toBe(30);
+    expect(list.head.amount).toBe(5);
+    expect(list.tail.amount).toBe(30);
+    expect(list.current.subject).toBe("Test4");      
+    expect(list.current.forwardNode.subject).toBe("Test3");
+    expect(list.current.forwardNode.forwardNode.subject).toBe("Test1");
+    expect(list.current.forwardNode.forwardNode.forwardNode.subject).toBe("Test2");
+    expect(list.head.subject).toBe("Test4");
+    expect(list.tail.subject).toBe("Test2");            
 });
