@@ -142,13 +142,8 @@ class LinkedList {
         
         let current = this.head;
         while (current !== null) {
-            let prev = current;
             this.tail = current;
-            current = current.forwardNode;                        
-            if (current !== null) {
-                current.backwardNode = prev;
-            }
-            
+            current = current.forwardNode;                              
         }                
     }                
 }
@@ -166,6 +161,7 @@ const utility ={
     //    (an array of size 1 is considered sorted).
     // 2. Repeatedly merge subarrays to produce new sorted subarrays until
     //    only 1 subarray is left which would be our sorted array.
+    // For Non-Cicular Double Linked List
     mergeSort: (source, isNumber) => {
         // https://www.geeksforgeeks.org/merge-sort-for-linked-list/
         // 1) If the head is NULL or there is only one element in the Linked List 
@@ -219,11 +215,13 @@ const utility ={
         // Pick either a or b, and recur
         let result = null;
         if ((isNumber ? Number(a.amount) : a.subject) <= (isNumber ? Number(b.amount) : b.subject)) { 
-            result = a;          
+            result = a;
+            b.backwardNode = a;
             result.forwardNode = utility.sortedMerge(a.forwardNode, b, isNumber); 
         } 
         else { 
             result = b;
+            a.backwardNode = b;
             result.forwardNode = utility.sortedMerge(a, b.forwardNode, isNumber); 
         } 
         return result; 
