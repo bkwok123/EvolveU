@@ -250,9 +250,47 @@ test('Check the ListNode class showtotal method', () => {
 test('Check the ListNode class sort method', () => {
 
     const list = new Linked.LinkedList();
-    expect(list.sort()).toBe(null);
+    list.sort(true);
+    expect(list.head).toBe(null);
+    list.sort(true);
     list.insert("Test",10);
-    expect(list.sort().amount).toBe(10);
+    list.insert("Test2",5);
+    list.insert("Test3",50);
+    list.insert("Test4",20);
+    list.insert("Test5",10);
+    list.sort(true);
+    list.first();
+    expect(list.current.amount).toBe(5);
+    expect(list.current.subject).toBe("Test2");
+    list.next();
+    expect(list.current.amount).toBe(10);
+    expect(list.current.subject).toBe("Test");
+    list.next();
+    expect(list.current.amount).toBe(10);
+    expect(list.current.subject).toBe("Test5");
+    list.next();
+    expect(list.current.amount).toBe(20);
+    expect(list.current.subject).toBe("Test4");    
+    list.next();
+    expect(list.current.amount).toBe(50);
+    expect(list.current.subject).toBe("Test3");
+    
+    list.sort(false);
+    list.first();
+    expect(list.current.amount).toBe(10);
+    expect(list.current.subject).toBe("Test");
+    list.next();
+    expect(list.current.amount).toBe(5);
+    expect(list.current.subject).toBe("Test2");
+    list.next();
+    expect(list.current.amount).toBe(50);
+    expect(list.current.subject).toBe("Test3");
+    list.next();
+    expect(list.current.amount).toBe(20);
+    expect(list.current.subject).toBe("Test4");    
+    list.next();
+    expect(list.current.amount).toBe(10);
+    expect(list.current.subject).toBe("Test5");
 });
 
 test('Check the frontBackSplit function', () => {
@@ -428,7 +466,7 @@ test('Check the mergeSort function', () => {
     expect(current.forwardNode.forwardNode.forwardNode.subject).toBe("Test4");
 });
 
-test('Check the ListNode class sort method', () => {
+test('Check the ListNode class sort2 method', () => {
     const isNumber = true;
     const list = new Linked.LinkedList();
     list.insert("Test2",30);
@@ -460,5 +498,9 @@ test('Check the ListNode class sort method', () => {
     expect(list.current.forwardNode.forwardNode.subject).toBe("Test1");
     expect(list.current.forwardNode.forwardNode.forwardNode.subject).toBe("Test2");
     expect(list.head.subject).toBe("Test4");
-    expect(list.tail.subject).toBe("Test2");            
+    expect(list.tail.subject).toBe("Test2");
+    expect(list.tail.backwardNode.subject).toBe("Test1");    
+    expect(list.tail.backwardNode.backwardNode.subject).toBe("Test3");            
+    expect(list.tail.backwardNode.backwardNode.backwardNode.subject).toBe("Test4");            
+    expect(list.tail.backwardNode.backwardNode.backwardNode.backwardNode).toBe(null);
 });
